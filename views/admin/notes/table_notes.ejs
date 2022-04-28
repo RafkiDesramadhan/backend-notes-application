@@ -1,0 +1,58 @@
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-toggle="modal"
+      data-target="#add-modal"
+    >
+      <i class="fas fa-plus"></i>
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table
+        class="table table-bordered"
+        id="dataTable"
+        width="100%"
+        cellspacing="0"
+      >
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Notes</th>
+            <th>User ID</th>
+            <th>Action</th>
+          </tr>
+        </thead> 
+        <% notes.map((note, index) => { %>
+            <tr>
+                <td><%= index + 1 %></td>
+                <td><%= note.notes %></td>
+                <td><%= note.userId %></td>
+                <td>
+                    <form action="/admin/notes/<%= note._id %>?_method=DELETE" method="POST">
+                      <a
+                        href="javascript:void()"
+                        type="button"
+                        class="btn btn-secondary btn-sm button-update"
+                        data-id="<%= note._id %>"
+                        data-userId="<%= note.userId %>"
+                        data-notes="<%= note.notes %>"
+                        ><i class="fas fa-edit"></i>
+                        Edit
+                      </a>
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                            <i class="fas fa-trash"></i>
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        <% }) %> 
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
