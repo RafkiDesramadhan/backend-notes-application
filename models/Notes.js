@@ -6,6 +6,10 @@ const notesSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  date: {
+    type: Date,
+    required: true,
+  },
   userId: {
     type: ObjectId,
     ref: "Users",

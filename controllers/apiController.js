@@ -8,13 +8,21 @@ module.exports = {
   register: async (req, res) => {
     try {
       const { username, password, confPassword } = req.body;
-      if (username === "" || password === "") {
-        res.status(404).json({ msg: "Username or password not found!" });
+      if (
+        username === "" ||
+        password === "" ||
+        username === null ||
+        password === null
+      ) {
+        res
+          .status(404)
+          .json({ status: "fail", msg: "Username or password not found!" });
       }
       if (password !== confPassword) {
-        res
-          .status(400)
-          .json({ msg: "Password and confirm password must be the same!" });
+        res.status(400).json({
+          status: "fail",
+          msg: "Password and confirm password must be the same!",
+        });
       }
 
       const users = await Users.find();
@@ -29,6 +37,7 @@ module.exports = {
         password,
       });
       res.status(201).json({
+        status: "success",
         msg: "User success created!",
       });
     } catch (error) {
@@ -44,7 +53,8 @@ module.exports = {
       }
 
       const match = await bcrypt.compare(password, user.password);
-      if (!match) return res.status(400).json({ msg: "Wrong password!" });
+      if (!match)
+        return res.status(400).json({ status: "fail", msg: "Wrong password!" });
 
       const accessToken = jwt.sign(
         { username: user.username },
@@ -75,9 +85,9 @@ module.exports = {
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000,
       });
-      res.status(200).json({ accessToken });
+      res.status(200).json({ status: "success", accessToken });
     } catch (error) {
-      res.status(500).json({ msg: `${error.message}` });
+      res.status(500).json({ status: "fail", msg: `${error.message}` });
     }
   },
   logout: async (req, res) => {
@@ -101,7 +111,7 @@ module.exports = {
       res.clearCookie("refreshToken");
       return res.sendStatus(200);
     } catch (error) {
-      res.status(500).json({ msg: `${error.message}` });
+      res.status(500).json({ status: "fail", msg: `${error.message}` });
     }
   },
   getNotes: async (req, res) => {
@@ -113,9 +123,9 @@ module.exports = {
       const notes = await Notes.find({
         userId: user._id,
       });
-      res.status(200).json({ notes });
+      res.status(200).json({ status: "success", notes });
     } catch (error) {
-      res.status(500).json({ msg: `${error.message}` });
+      res.status(500).json({ status: "fail", msg: `${error.message}` });
     }
   },
   getNotesById: async (req, res) => {
@@ -124,15 +134,16 @@ module.exports = {
       const notes = await Notes.findOne({
         _id: id,
       });
-      res.status(200).json({ notes });
+      res.status(200).json({ status: "success", notes });
     } catch (error) {
-      res.status(500).json({ msg: `${error.message}` });
+      res.status(500).json({ status: "fail", msg: `${error.message}` });
     }
   },
   addNotes: async (req, res) => {
     try {
-      const { note } = req.body;
-      if (!note) return res.status(404).json({ msg: "Notes empty!" });
+      const { note, date } = req.body;
+      if (!note)
+        return res.status(404).json({ status: "fail", msg: "Notes empty!" });
 
       const refreshToken = req.cookies.refreshToken;
       const user = await Users.findOne({
@@ -142,8 +153,9 @@ module.exports = {
       await Notes.create({
         notes: note,
         userId: id,
+        date,
       });
-      res.status(201).json({ msg: "Success insert notes!" });
+      res.status(201).json({ status: "success", msg: "Success insert notes!" });
     } catch (error) {
       res.status(500).json({ msg: `${error.message}` });
     }
@@ -152,29 +164,31 @@ module.exports = {
     try {
       const { id } = req.params;
       await Notes.deleteOne({ _id: id });
-      res.status(200).json({ msg: "Success delete notes!" });
+      res.status(200).json({ status: "success", msg: "Success delete notes!" });
     } catch (error) {
-      res.status(500).json({ msg: `${error.message}` });
+      res.status(500).json({ status: "fail", msg: `${error.message}` });
     }
   },
   updateNotes: async (req, res) => {
     try {
       const { id } = req.params;
-      const { note } = req.body;
+      const { note, date } = req.body;
 
-      if (!note) return res.status(404).json({ msg: "Note not found!" });
+      if (!note)
+        return res.status(404).json({ status: "fail", msg: "Note not found!" });
 
       await Notes.updateOne(
         { _id: id },
         {
           $set: {
             notes: note,
+            date,
           },
         }
       );
-      res.status(200).json({ msg: "Success update notes!" });
+      res.status(200).json({ status: "success", msg: "Success update notes!" });
     } catch (error) {
-      res.status(500).json({ msg: `${error.message}` });
+      res.status(500).json({ status: "fail", msg: `${error.message}` });
     }
   },
 };
