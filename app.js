@@ -36,6 +36,7 @@ app.use(
   cors({
     credentials: true,
     origin: "https://majestic-platypus-5b41a0.netlify.app",
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
