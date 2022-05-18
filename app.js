@@ -35,8 +35,7 @@ var app = express();
 app.use(
   cors({
     credentials: true,
-    origin:
-      "https://6284c9760d95d967ed3e8347--majestic-platypus-5b41a0.netlify.app",
+    origin: "https://majestic-platypus-5b41a0.netlify.app",
   })
 );
 
