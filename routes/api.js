@@ -5,7 +5,13 @@ const { refreshToken } = require("../middlewares/refreshToken");
 
 // authenticate
 router.post("/register", apiController.register);
-router.post("/login", { credentials: "include" }, apiController.login);
+router.post(
+  "/login",
+  function (req, res, next) {
+    res.header("Access-Control-Allow-Credentials", true);
+  },
+  apiController.login
+);
 router.delete("/logout", apiController.logout);
 
 // refresh token
