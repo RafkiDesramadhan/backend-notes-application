@@ -43,6 +43,7 @@ app.set("view engine", "ejs");
 
 app.use(
   session({
+    proxy: true,
     secret: "keyboard cat",
     resave: false,
     saveUninitialized: true,
