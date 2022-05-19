@@ -25,20 +25,18 @@ try {
   console.log("mongodb unconnected!");
 }
 
+app.use(
+  cors({
+    credentials: true,
+    origin: "https://majestic-platypus-5b41a0.netlify.app",
+  })
+);
 dotenv.config();
 const adminRouter = require("./routes/index");
 const startRouter = require("./routes/indexStart");
 const apiRouter = require("./routes/api");
 
 var app = express();
-
-app.use(
-  cors({
-    credentials: true,
-    origin: "https://majestic-platypus-5b41a0.netlify.app",
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
