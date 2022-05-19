@@ -14,12 +14,12 @@ module.exports = {
         username === null ||
         password === null
       ) {
-        res
+        return res
           .status(404)
           .json({ status: "fail", msg: "Username or password not found!" });
       }
       if (password !== confPassword) {
-        res.status(400).json({
+        return res.status(400).json({
           status: "fail",
           msg: "Password and confirm password must be the same!",
         });
@@ -49,8 +49,7 @@ module.exports = {
       const { username, password } = req.body;
       const user = await Users.findOne({ username });
       if (!user) {
-        // return res.status(404).json({ msg: "User not found!" });
-        return res.sendStatus(404);
+        return res.status(404).json({ msg: "User not found!" });
       }
 
       const match = await bcrypt.compare(password, user.password);
