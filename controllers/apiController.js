@@ -82,7 +82,7 @@ module.exports = {
       );
 
       res.cookie("refreshToken", refreshToken, {
-        domain: "https://majestic-platypus-5b41a0.netlify.app",
+        httpOnly: true,
         secure: true,
         maxAge: 24 * 60 * 60 * 1000,
       });

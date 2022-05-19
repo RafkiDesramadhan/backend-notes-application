@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const refreshToken = async (req, res) => {
   try {
     const refreshToken = req.cookies.refreshToken;
+    console.log(refreshToken);
     if (!refreshToken)
       return res.sendStatus(401).json({
         msg: "gagal",
