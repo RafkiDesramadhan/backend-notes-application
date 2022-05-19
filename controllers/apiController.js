@@ -82,7 +82,7 @@ module.exports = {
       );
 
       res.cookie("refreshToken", refreshToken, {
-        httpOnly: true,
+        httpOnly: false,
         secure: true,
         maxAge: 24 * 60 * 60 * 1000,
       });
