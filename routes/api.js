@@ -13,6 +13,7 @@ router.post(
       "https://majestic-platypus-5b41a0.netlify.app"
     );
     res.header("Access-Control-Allow-Credentials", true);
+    next();
   },
   apiController.login
 );
