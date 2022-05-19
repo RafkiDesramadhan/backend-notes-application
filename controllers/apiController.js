@@ -49,7 +49,7 @@ module.exports = {
       const { username, password } = req.body;
       const user = await Users.findOne({ username });
       if (!user) {
-        res.status(404).json({ msg: "User not found!" });
+        return res.status(404).json({ msg: "User not found!" });
       }
 
       const match = await bcrypt.compare(password, user.password);
