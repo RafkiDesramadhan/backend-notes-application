@@ -20,7 +20,18 @@ router.post(
 router.delete("/logout", apiController.logout);
 
 // refresh token
-router.get("/token", refreshToken);
+router.get(
+  "/token",
+  function (req, res, next) {
+    res.header(
+      "Access-Control-Allow-Origin",
+      "https://majestic-platypus-5b41a0.netlify.app"
+    );
+    res.header("Access-Control-Allow-Credentials", true);
+    next();
+  },
+  refreshToken
+);
 
 // notes
 router.get(
