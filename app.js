@@ -29,7 +29,7 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: "*",
+    origin: "https://majestic-platypus-5b41a0.netlify.app/",
   })
 );
 dotenv.config();
