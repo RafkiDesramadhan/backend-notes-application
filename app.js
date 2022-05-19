@@ -25,6 +25,7 @@ try {
   console.log("mongodb unconnected!");
 }
 
+const app = express();
 app.use(
   cors({
     credentials: true,
@@ -35,8 +36,6 @@ dotenv.config();
 const adminRouter = require("./routes/index");
 const startRouter = require("./routes/indexStart");
 const apiRouter = require("./routes/api");
-
-var app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
