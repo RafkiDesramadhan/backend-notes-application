@@ -41,9 +41,9 @@ const apiRouter = require("./routes/api");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+app.set("trust proxy", 1);
 app.use(
   session({
-    proxy: true,
     secret: "keyboard cat",
     resave: false,
     saveUninitialized: true,
