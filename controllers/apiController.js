@@ -81,13 +81,13 @@ module.exports = {
         }
       );
 
-      res.setHeader(
+      res.header(
         "Access-Control-Allow-Origin",
-        "https://majestic-platypus-5b41a0.netlify.app"
+        "https://majestic-platypus-5b41a0.netlify.app/"
       );
 
       res.cookie("refreshToken", refreshToken, {
-        httpOnly: false,
+        httpOnly: true,
         secure: true,
         maxAge: 24 * 60 * 60 * 1000,
       });
