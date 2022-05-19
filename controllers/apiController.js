@@ -81,11 +81,6 @@ module.exports = {
         }
       );
 
-      res.header(
-        "Access-Control-Allow-Origin",
-        "https://majestic-platypus-5b41a0.netlify.app/"
-      );
-
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
         secure: true,
