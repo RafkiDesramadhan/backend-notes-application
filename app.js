@@ -44,10 +44,11 @@ app.set("view engine", "ejs");
 app.set("trust proxy", 1);
 app.use(
   session({
-    secret: "keyboard cat",
-    resave: true,
+    secret: "sessions",
+    resave: false,
     saveUninitialized: true,
     cookie: {
+      sameSite: "none",
       secure: true,
       maxAge: 60000,
       httpOnly: true,
