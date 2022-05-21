@@ -49,7 +49,8 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      sameSite: "strict",
+      domain: "https://majestic-platypus-5b41a0.netlify.app/",
+      sameSite: "none",
       secure: true,
       maxAge: 60000,
       httpOnly: true,
