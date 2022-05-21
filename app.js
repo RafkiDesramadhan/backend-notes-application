@@ -41,6 +41,7 @@ const apiRouter = require("./routes/api");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+app.use(cookieParser());
 app.set("trust proxy", 1);
 app.use(
   session({
@@ -49,7 +50,6 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      domain: "https://majestic-platypus-5b41a0.netlify.app/",
       sameSite: "none",
       secure: true,
       maxAge: 60000,
@@ -63,7 +63,6 @@ app.use(methodOverride("_method"));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // sb-admin-2
