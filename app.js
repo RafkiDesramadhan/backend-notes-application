@@ -45,16 +45,15 @@ app.use(cookieParser());
 app.set("trust proxy", 1);
 app.use(
   session({
-    proxy: true,
-    secret: "keyboard cat",
-    resave: false,
-    saveUninitialized: true,
     cookie: {
-      sameSite: "none",
+      sameSite: "lax",
       secure: true,
       maxAge: 60000,
       httpOnly: true,
     },
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: true,
   })
 );
 app.use(flash());
