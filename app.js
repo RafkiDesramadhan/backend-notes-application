@@ -46,7 +46,6 @@ app.set("trust proxy", 1);
 app.use(
   session({
     cookie: {
-      sameSite: true,
       secure: true,
       maxAge: 60000,
       httpOnly: false,
