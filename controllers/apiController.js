@@ -95,16 +95,7 @@ module.exports = {
     try {
       const refreshToken = req.cookies.refreshToken;
       console.log(refreshToken);
-      if (refreshToken === undefined) {
-        // no: set a new cookie
-        var randomNumber = Math.random().toString();
-        randomNumber = randomNumber.substring(2, randomNumber.length);
-        res.cookie("cookieName", randomNumber, {
-          maxAge: 900000,
-          httpOnly: true,
-        });
-        console.log("cookie created successfully");
-      }
+
       if (!refreshToken) return res.sendStatus(204);
 
       const user = await Users.findOne({ refresh_token: refreshToken });

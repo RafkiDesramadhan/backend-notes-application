@@ -47,8 +47,10 @@ app.use(
   session({
     cookie: {
       secure: true,
-      maxAge: 60000,
       httpOnly: true,
+      domain: "https://majestic-platypus-5b41a0.netlify.app/",
+      maxAge: 60000,
+      path: "/",
     },
     secret: "keyboard cat",
     resave: false,
