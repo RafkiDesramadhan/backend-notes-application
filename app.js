@@ -49,7 +49,7 @@ app.use(
       sameSite: true,
       secure: true,
       maxAge: 60000,
-      httpOnly: true,
+      httpOnly: false,
     },
     secret: "keyboard cat",
     resave: false,
