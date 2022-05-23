@@ -49,7 +49,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      domain: "112.215.235.102",
+      domain: ".netlify.app",
       sameSite: "strict",
       httpOnly: true,
       maxAge: 60000,
