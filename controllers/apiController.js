@@ -85,7 +85,6 @@ module.exports = {
         httpOnly: true,
         secure: true,
         maxAge: 24 * 60 * 60 * 1000,
-        sameSite: "none",
       });
       res.status(200).json({ status: "success", accessToken });
     } catch (error) {

@@ -51,7 +51,6 @@ app.use(
     cookie: {
       secure: true,
       httpOnly: true,
-      sameSite: "none",
       maxAge: 60000,
     },
   })
