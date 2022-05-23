@@ -45,10 +45,12 @@ app.use(cookieParser());
 app.set("trust proxy", 1);
 app.use(
   session({
+    proxy: true,
     secret: "keyboard cat",
     resave: false,
     saveUninitialized: true,
     cookie: {
+      sameSite: true,
       secure: true,
       httpOnly: true,
       maxAge: 60000,
