@@ -22,13 +22,15 @@ module.exports = {
   actionLogin: async (req, res) => {
     try {
       const { username, password } = req.body;
-      const user = await Users.find();
+      const user = await Users.findOne({ username });
+
       if (!user) {
         req.flash("alertMessage", "User not found!");
         req.flash("alertStatus", "danger");
         res.redirect("/admin/login");
       }
-      const match = await bcrypt.compare(password, user[0].password);
+
+      const match = await bcrypt.compare(password, user.password);
       if (!match) {
         req.flash("alertMessage", "Wrong password!");
         req.flash("alertStatus", "danger");
@@ -36,7 +38,7 @@ module.exports = {
       }
 
       req.session.user = {
-        id: user[0]._id,
+        id: user._id,
         username,
       };
 
@@ -60,6 +62,7 @@ module.exports = {
         title: "Notes App | Dashboard",
         users,
         notes,
+        active: "active",
         user: req.session.user,
       });
     } catch (error) {
@@ -85,7 +88,7 @@ module.exports = {
   addUsers: async (req, res) => {
     try {
       const { username, password, confPassword } = req.body;
-      // validation
+
       if (password !== confPassword) {
         req.flash(
           "alertMessage",
@@ -198,6 +201,7 @@ module.exports = {
       await Notes.create({
         notes,
         userId,
+        date: new Date().toLocaleString(),
       });
       req.flash("alertMessage", `Success add notes!`);
       req.flash("alertStatus", "success");

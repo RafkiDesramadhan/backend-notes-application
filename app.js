@@ -3,11 +3,11 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+require("dotenv").config();
 
 const session = require("express-session");
 const flash = require("connect-flash");
 const methodOverride = require("method-override");
-const dotenv = require("dotenv");
 const cors = require("cors");
 
 // mongoose
@@ -29,10 +29,10 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: "https://majestic-platypus-5b41a0.netlify.app",
+    origin: "http://localhost:3000",
   })
 );
-dotenv.config();
+
 const adminRouter = require("./routes/index");
 const startRouter = require("./routes/indexStart");
 const apiRouter = require("./routes/api");
@@ -49,10 +49,8 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      domain: ".netlify.app",
-      sameSite: "strict",
       httpOnly: true,
-      maxAge: 60000,
+      maxAge: 86400,
     },
   })
 );
